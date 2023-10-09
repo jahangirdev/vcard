@@ -85,13 +85,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('portfolio_category.index')}}" class="nav-link">
+                <a href="{{route('portfolio.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Portfolio</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route("portfolio_category.create")}}" class="nav-link">
+                <a href="{{route("portfolio.create")}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New</p>
                 </a>

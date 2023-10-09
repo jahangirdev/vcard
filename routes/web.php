@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortfolioCategoryController;
+use App\Http\Controllers\PortfolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(function(){
     //route for welcome screen of dashboard
     Route::view('/dashboard', 'dashboard.welcome')->name('dashboard.welcome');
     Route::resource("/portfolio_category", PortfolioCategoryController::class);
+    Route::resource('portfolio', PortfolioController::class);
 });
