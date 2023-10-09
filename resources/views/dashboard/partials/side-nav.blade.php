@@ -62,9 +62,32 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="{{route('portfolio_category.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("portfolio_category.create")}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa fa-plus-square nav-icon"></i>
+              <p>
+                Portfolios
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('portfolio_category.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Portfolio</p>
                 </a>
               </li>
               <li class="nav-item">

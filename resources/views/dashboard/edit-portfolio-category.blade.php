@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add New Category</h1>
+                        <h1 class="m-0">Edit "{{$portfolio_category->name}}"</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">New Category</li>
+                            <li class="breadcrumb-item active">Edit Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -22,6 +22,10 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
+                    </div>
+                @elseif(session('notice'))
+                    <div class="alert alert-{{session('notice')['type']}}">
+                        {{session('notice')['message']}}
                     </div>
                 @endif
             </div><!-- /.container-fluid -->
@@ -38,22 +42,23 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Create New Category</h3>
+                                <h3 class="card-title">Edit Category</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="{{route('portfolio_category.store')}}">
+                            <form method="POST" action="{{route('portfolio_category.update', $portfolio_category->id)}}">
                                 <div class="card-body">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label for="categoryName">Category Name</label>
-                                        <input type="text" name="name" class="form-control" id="categoryName" placeholder="Category name">
+                                        <input type="text" name="name" class="form-control" id="categoryName" placeholder="Category name" value="{{$portfolio_category->name}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="categorySlug">Category Slug</label>
-                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug">
+                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug" value="{{$portfolio_category->slug}}">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Create New</button>
+                                    <button type="submit" class="btn btn-primary">Update Category</button>
                                 </div>
                                 <!-- /.card-body -->
                             </form>

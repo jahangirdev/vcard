@@ -14,7 +14,8 @@ class PortfolioCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $portfolio_category = PortfolioCategory::all();
+        return view('dashboard.index-portfolio-category', compact('portfolio_category'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PortfolioCategoryController extends Controller
      */
     public function create()
     {
-        return view("dashboard.create-portfolio");
+        return view("dashboard.create-portfolio-category");
     }
 
     /**
@@ -44,8 +45,7 @@ class PortfolioCategoryController extends Controller
             'slug' => $request->slug
         ]);
         $portfolio_category->save();
-        $message = "Category Created Successfully!";
-        return redirect()->route('portfolio_category.create')->with('message');
+        return redirect()->route('portfolio_category.create')->with('notice', ['message' => 'Category Created Successfully!', 'type' => 'success']);
     }
 
     /**
@@ -67,7 +67,8 @@ class PortfolioCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $portfolio_category = PortfolioCategory::where('id', $id)->first();
+        return view('dashboard.edit-portfolio-category', compact('portfolio_category'));
     }
 
     /**
@@ -79,7 +80,15 @@ class PortfolioCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:portfolio_categories'
+        ]);
+        $portfolio_category = PortfolioCategory::find($id);
+        $portfolio_category->name = $request->name;
+        $portfolio_category->slug = $request->slug;
+        $portfolio_category->save();
+        return redirect()->route('portfolio_category.index')->with('notice', ['message' => 'Category updated Successfully!', 'type' => 'success']);
     }
 
     /**
@@ -90,6 +99,9 @@ class PortfolioCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PortfolioCategory::destroy($id);
+        $notice['message'] = "Category Deleted Successfully!";
+        $notice['type'] = "warning";
+        return redirect()->route('portfolio_category.index')->with('notice', $notice);
     }
 }
