@@ -3,7 +3,7 @@
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{url('/')}}"><b>Laravel</b>Blog</a>
+            <a href="{{url('/')}}"><b>V</b>Card</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
