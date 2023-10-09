@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PortfolioCategory;
 use App\Models\Portfolios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PortfolioController extends Controller
 {
@@ -43,6 +44,7 @@ class PortfolioController extends Controller
             'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:portfolios',
             'thumbnail' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048|dimensions:min_width=100,min_height=100,max_width:1000,max_height=1000',
             'category' => 'required|integer',
+            'description' => 'string',
             'user_id' => 'required',
             'link' => 'string'
         ]);
@@ -83,7 +85,9 @@ class PortfolioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $portfolio = Portfolios::find($id);
+        $categories = PortfolioCategory::all();
+        return view('dashboard.edit-portfolio', compact('portfolio', 'categories'));
     }
 
     /**
@@ -95,7 +99,47 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255|',
+            'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:portfolios,slug,'.$id,
+            'thumbnail' => $request->file('thumbnail') !== null ? 'image|mimes:jpg,png,jpeg,gif|max:2048|dimensions:min_width=100,min_height=100,max_width:1000,max_height=1000':"",
+            'category' => 'required|integer',
+            'description' => 'string',
+            'link' => 'string'
+        ]);
+        if($request->file('thumbnail') != null){
+            $thumbnail = $request->file("thumbnail");
+            $path = "public/image/";
+            $name = strtolower($request->slug.uniqid("", true).".".$thumbnail->getClientOriginalExtension());
+            if($thumbnail->move($path, $name)) {
+                $portfolio = Portfolios::find($id);
+                $prevFile = $portfolio->thumbnail;
+                $portfolio->title = $request->title;
+                $portfolio->slug = $request->slug;
+                $portfolio->category = $request->category;
+                $portfolio->description = $request->description;
+                $portfolio->thumbnail = $path . $name;
+                $portfolio->link = $request->link;
+                $portfolio->save();
+
+                //delete the previous file
+                $fileToDelete = public_path('../'.$prevFile);
+                if (File::exists($fileToDelete)){
+                    File::delete($fileToDelete);
+                }
+                return redirect()->route('portfolio.index')->with('notice', ['message' => 'Portfolio updated Successfully!', 'type' => 'success']);
+            }
+        }
+        else{
+            $portfolio = Portfolios::find($id);
+            $portfolio->title = $request->title;
+            $portfolio->slug = $request->slug;
+            $portfolio->category = $request->category;
+            $portfolio->description = $request->description;
+            $portfolio->link = $request->link;
+            $portfolio->save();
+            return redirect()->route('portfolio.index')->with('notice', ['message' => 'Portfolio updated Successfully!', 'type' => 'success']);
+        }
     }
 
     /**
@@ -106,6 +150,7 @@ class PortfolioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Portfolios::destroy($id);
+        return redirect()->route('portfolio.index')->with('notice', ['type' => 'warning', 'message' => 'Portfolio deleted successfully!']);
     }
 }

@@ -71,8 +71,8 @@
                                         <tr>
                                             <td>{{$portfolio->title}}</td>
                                             <td>{{$portfolio->slug}}</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{$portfolio->getCategory->name}}</td>
+                                            <td><img style="max-width:100%; max-height: 50px" src="{{asset($portfolio->thumbnail)}}" alt="Thumbnail"></td>
                                             <td>
                                                 <a href="{{route('portfolio.edit',$portfolio->id)}}" class="btn btn-success">Edit</a>
                                                 <form method="post" action="{{route('portfolio.destroy', $portfolio->id)}}" id="delete-form-{{ $portfolio->id }}" style="display:none">
@@ -98,7 +98,7 @@
     </div>
     <script>
         function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this category?")) {
+            if (confirm("Are you sure you want to delete this portfolio?")) {
                 document.getElementById('delete-form-' + id).submit();
             }
         }
