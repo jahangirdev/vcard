@@ -1,3 +1,6 @@
+@php
+$currentRoute = Route::currentRouteName();
+@endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('dashboard.welcome')}}" class="brand-link">
@@ -34,12 +37,11 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
@@ -62,13 +64,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('portfolio_category.index')}}" class="nav-link">
+                <a href="{{route('portfolio_category.index')}}" class="nav-link {{ $currentRoute == 'portfolio_category.index' ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route("portfolio_category.create")}}" class="nav-link">
+                <a href="{{route("portfolio_category.create")}}" class="nav-link {{ $currentRoute == 'portfolio_category.create' ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New</p>
                 </a>
@@ -98,6 +100,56 @@
               </li>
             </ul>
           </li>
+            @if(Auth::user()->role == 1)
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa fa-building nav-icon" aria-hidden="true"></i>
+              <p>
+                Companies
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('company.index')}}" class="nav-link {{ $currentRoute == 'company.index' ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Company</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("company.create")}}" class="nav-link {{ $currentRoute == 'company.create' ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Company</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            @endif
+            @if(Auth::user()->role <= 2)
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+              <p>
+                Staffs
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('staff.index')}}" class="nav-link {{ $currentRoute == 'staff.index' ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Staff</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("staff.create")}}" class="nav-link {{ $currentRoute == 'staff.create' ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Staff</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -637,3 +689,11 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        const activeItem = document.querySelector(".nav-link.active");
+        if(activeItem != null){
+            activeItem.parentElement.parentElement.parentElement.classList.add("menu-open");
+        }
+    });
+</script>

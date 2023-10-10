@@ -27,10 +27,22 @@ Route::get('/', function () {
  *  Auth middleware is added to this route.
  */
 
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth', 'admin'])->group(function(){
 
     //route for welcome screen of dashboard
     Route::view('/dashboard', 'dashboard.welcome')->name('dashboard.welcome');
     Route::resource("/portfolio_category", PortfolioCategoryController::class);
     Route::resource('portfolio', PortfolioController::class);
+    Route::resource('company', \App\Http\Controllers\CompanyController::class);
 });
+
+Route::middleware(['auth', 'company'])->group(function(){
+    Route::resource("staff", \App\Http\Controllers\StaffController::class);
+
+
+
+});
+
+
+
+Route::view('/dashboard/unauthorize-access', 'dashboard.unauthorize')->name('unauthorize');
