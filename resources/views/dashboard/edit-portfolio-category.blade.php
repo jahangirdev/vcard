@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="categorySlug">Category Slug</label>
-                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug" value="{{$portfolio_category->slug}}">
+                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug" value="{{$portfolio_category->slug}}" onkeyup="slugify(this, this)">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Update Category</button>
                                 </div>

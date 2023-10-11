@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Companies</h1>
+                        <h1 class="m-0">Staffs</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Companies</li>
+                            <li class="breadcrumb-item active">Staffs</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -59,23 +59,23 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>Company Name</th>
-                                        <th>Number of Stuffs</th>
+                                        <th>Staff Name</th>
+                                        <th>Company</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $companies as $company)
+                                    @foreach( $staffs as $staff)
                                         <tr>
-                                            <td>{{$company->name}}</td>
-                                            <td></td>
+                                            <td>{{$staff->name}}</td>
+                                            <td>{{$getCompany($staff->company)->name}}</td>
                                             <td>
-                                                <a href="{{route('portfolio_category.edit',$company->id)}}" class="btn btn-success">Edit Profile</a>
-                                                <form method="post" action="{{route('company.destroy', $company->id)}}" id="delete-form-{{ $company->id }}" style="display:none">
+                                                <a href="{{route('portfolio_category.edit',$staff->id)}}" class="btn btn-success">Edit Profile</a>
+                                                <form method="post" action="{{route('company.destroy', $staff->id)}}" id="delete-form-{{ $staff->id }}" style="display:none">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                                <button onclick="confirmDelete({{ $company->id }})" type="submit" class="btn btn-danger">Delete</button>
+                                                <button onclick="confirmDelete({{ $staff->id }})" type="submit" class="btn btn-danger">Delete</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,7 +94,7 @@
     </div>
     <script>
         function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this category?")) {
+            if (confirm("Are you sure you want to delete this staff?")) {
                 document.getElementById('delete-form-' + id).submit();
             }
         }

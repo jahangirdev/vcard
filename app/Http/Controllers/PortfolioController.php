@@ -6,6 +6,8 @@ use App\Models\PortfolioCategory;
 use App\Models\Portfolios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
 {
@@ -16,7 +18,17 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios = Portfolios::all();
+        $portfolios = null;
+        if(Auth::user()->role == 1){
+            $portfolios = Portfolios::all();
+        }
+        else if(Auth::user()->role == 2){
+            $stuff_ids = User::where('company', Auth::user()->id)->pluck('id')->toArray();
+            $portfolios = Portfolios::where('user_id', $stuff_ids)->get();
+        }
+        else{
+            $portfolios = Portfolios::where('user_id', Auth::user()->id)->get();
+        }
         return view('dashboard.index-portfolio', compact('portfolios'));
     }
 
@@ -28,7 +40,11 @@ class PortfolioController extends Controller
     public function create()
     {
         $categories = PortfolioCategory::all();
-        return view("dashboard.create-portfolio", compact('categories'));
+        $staffs = Auth::user()->role == 1 ? User::where('role', '>', 1)->get() : User::where('company', Auth::user()->id)->get();
+        $getCompany = function ($user_id){
+            return User::find($user_id);
+        };
+        return view("dashboard.create-portfolio", compact('categories', 'staffs', 'getCompany'));
     }
 
     /**
@@ -45,9 +61,9 @@ class PortfolioController extends Controller
             'thumbnail' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048|dimensions:min_width=100,min_height=100,max_width:1000,max_height=1000',
             'category' => 'required|integer',
             'description' => 'string',
-            'user_id' => 'required',
             'link' => 'string'
         ]);
+        $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Auth::user()->id;
         $thumbnail = $request->file("thumbnail");
         $path = "public/image/";
         $name = strtolower($request->slug.uniqid("", true).".".$thumbnail->getClientOriginalExtension());
@@ -58,7 +74,7 @@ class PortfolioController extends Controller
                 'category' => $request->category,
                 'description' => $request->description,
                 'thumbnail' => $path.$name,
-                'user_id' => $request->user_id,
+                'user_id' => $user_id,
                 'link' => $request->link
             ]);
             $portfolio->save();
@@ -87,7 +103,11 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolios::find($id);
         $categories = PortfolioCategory::all();
-        return view('dashboard.edit-portfolio', compact('portfolio', 'categories'));
+        $staffs = Auth::user()->role == 1 ? User::where('role', '>', 1)->get() : User::where('company', Auth::user()->id)->get();
+        $getCompany = function ($user_id){
+            return User::find($user_id);
+        };
+        return view('dashboard.edit-portfolio', compact('portfolio', 'categories', 'staffs', 'getCompany'));
     }
 
     /**
@@ -107,6 +127,7 @@ class PortfolioController extends Controller
             'description' => 'string',
             'link' => 'string'
         ]);
+        $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Portfolios::find($id)->user_id;
         if($request->file('thumbnail') != null){
             $thumbnail = $request->file("thumbnail");
             $path = "public/image/";
@@ -120,6 +141,7 @@ class PortfolioController extends Controller
                 $portfolio->description = $request->description;
                 $portfolio->thumbnail = $path . $name;
                 $portfolio->link = $request->link;
+                $portfolio->user_id = $user_id;
                 $portfolio->save();
 
                 //delete the previous file
@@ -137,6 +159,7 @@ class PortfolioController extends Controller
             $portfolio->category = $request->category;
             $portfolio->description = $request->description;
             $portfolio->link = $request->link;
+            $portfolio->user_id = $user_id;
             $portfolio->save();
             return redirect()->route('portfolio.index')->with('notice', ['message' => 'Portfolio updated Successfully!', 'type' => 'success']);
         }

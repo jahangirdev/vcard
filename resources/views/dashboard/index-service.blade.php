@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Companies</h1>
+                        <h1 class="m-0">Services</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Companies</li>
+                            <li class="breadcrumb-item active">Services</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -59,23 +59,29 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>Company Name</th>
-                                        <th>Number of Stuffs</th>
+                                        <th>Service Title</th>
+                                        <th>Slug</th>
+                                        @if(Auth::user()->role < 3)<th>Assigned To</th>@endif
+                                        <th>Icon</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $companies as $company)
+                                    @foreach( $services as $service)
                                         <tr>
-                                            <td>{{$company->name}}</td>
-                                            <td></td>
+                                            <td>{{$service->title}}</td>
+                                            <td>{{$service->slug}}</td>
+                                            @if(Auth::user()->role < 3)
+                                            <td>@if(Auth::user()->role == 1){{$getCompany($service->staff->company)->name}} => @endif{{$service->staff->name}}</td>
+                                            @endif;
+                                            <td><img style="max-width:100%; max-height: 50px" src="{{asset($service->icon)}}" alt="Thumbnail"></td>
                                             <td>
-                                                <a href="{{route('portfolio_category.edit',$company->id)}}" class="btn btn-success">Edit Profile</a>
-                                                <form method="post" action="{{route('company.destroy', $company->id)}}" id="delete-form-{{ $company->id }}" style="display:none">
+                                                <a href="{{route('service.edit',$service->id)}}" class="btn btn-success">Edit</a>
+                                                <form method="post" action="{{route('service.destroy', $service->id)}}" id="delete-form-{{ $service->id }}" style="display:none">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                                <button onclick="confirmDelete({{ $company->id }})" type="submit" class="btn btn-danger">Delete</button>
+                                                <button onclick="confirmDelete({{ $service->id }})" type="submit" class="btn btn-danger">Delete</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,7 +100,7 @@
     </div>
     <script>
         function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this category?")) {
+            if (confirm("Are you sure you want to delete this portfolio?")) {
                 document.getElementById('delete-form-' + id).submit();
             }
         }

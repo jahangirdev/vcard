@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Edit {{$portfolio->title}}</h1>
+                        <h1 class="m-0">Edit "{{$portfolio->title}}"</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="portfolioSlug">Portfolio Slug</label>
-                                        <input type="text" name="slug" class="form-control" id="portfolioSlug" placeholder="Portfolio slug"  value="{{$portfolio->slug}}">
+                                        <input type="text" name="slug" class="form-control" id="portfolioSlug" placeholder="Portfolio slug"  value="{{$portfolio->slug}}" onkeyup="slugify(this, this)">
                                     </div>
                                     <div class="form-group">
                                         <label for="category">Portfolio Category</label>
@@ -66,6 +66,17 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    @if(Auth::user()->role < 3)
+                                        <div class="form-group">
+                                            <label for="AssignTo">Assign To</label>
+                                            <select name="user_id" class="form-control" id="AssignTo">
+                                                <option value="{{Auth::user()->id}}"><--Myself--></option>
+                                                @foreach($staffs as $staff)
+                                                    <option value="{{$staff->id}}" @if($staff->id == old('user_id') || (old('user_id') == null && $portfolio->user_id == $staff->id)) selected @endif> @if($staff->role == 3){{$getCompany($staff->company)->name}} => @endif {{$staff->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
                                     <div class="form-group">
                                         <label for="portfolioDesc">Portfolio Description</label>
                                         <textarea rows="8" name="description" class="form-control" id="portfolioDesc" placeholder="Write portfolio descripton here...">{{$portfolio->title}}</textarea>

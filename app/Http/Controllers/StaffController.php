@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -13,7 +16,11 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        $staffs = Auth::user()->role == 1 ? User::where('role', 3)->get() : User::where('company', Auth::user()->id)->get();
+        $getCompany = function ($user_id){
+            return User::find($user_id);
+        };
+        return view('dashboard.index-staff', compact('staffs', 'getCompany'));
     }
 
     /**
@@ -23,7 +30,8 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        $companies = User::where('role', 2)->get();
+        return view('dashboard.create-staff', compact('companies'));
     }
 
     /**
@@ -34,7 +42,21 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'company' => Auth::user()->role == 1 ? 'required|integer' : '',
+        ]);
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 3,
+            'company' => Auth::user()->role == 1 ? $request->company : Auth::user()->id,
+        ]);
+        $user->save();
+        return redirect()->route('staff.index')->with('notice', ['type' => 'success', 'message' => 'Staff registered successfully!']);
     }
 
     /**

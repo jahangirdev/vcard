@@ -51,11 +51,11 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="categoryName">Category Name</label>
-                                        <input type="text" name="name" class="form-control" id="categoryName" placeholder="Category name">
+                                        <input type="text" name="name" class="form-control" id="categoryName" placeholder="Category name" onkeyup="slugify(this, document.getElementById('categorySlug'))">
                                     </div>
                                     <div class="form-group">
                                         <label for="categorySlug">Category Slug</label>
-                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug">
+                                        <input type="text" name="slug" class="form-control" id="categorySlug" placeholder="Category slug" onkeyup="slugify(this, this)">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Create New</button>
                                 </div>

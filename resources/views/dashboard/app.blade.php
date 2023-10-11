@@ -25,6 +25,16 @@
   <link rel="stylesheet" href="{{asset('public/back-end')}}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('public/back-end')}}/plugins/summernote/summernote-bs4.min.css">
+    <script>
+       function slugify(from, target){
+           console.log("Called slugify!");
+               let text = from.value;
+               text = text.toLowerCase();
+               text = text.trim();
+               let slug = text.replace(/[^a-z0-9]+/g, '-');
+               target.value = slug;
+       }
+    </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -72,7 +82,7 @@
 <!-- ChartJS -->
 <script src="{{asset('public/back-end')}}/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="{{asset('public/back-end')}}/plugins/sparklines/sparkline.js"></script>
+{{--<script src="{{asset('public/back-end')}}/plugins/sparklines/sparkline.js"></script>--}}
 <!-- JQVMap -->
 <script src="{{asset('public/back-end')}}/plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="{{asset('public/back-end')}}/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
@@ -90,6 +100,6 @@
 <!-- AdminLTE App -->
 <script src="{{asset('public/back-end')}}/dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('public/back-end')}}/dist/js/pages/dashboard.js"></script>
+{{--<script src="{{asset('public/back-end')}}/dist/js/pages/dashboard.js"></script>--}}
 </body>
 </html>
