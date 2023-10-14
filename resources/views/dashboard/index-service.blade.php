@@ -73,7 +73,7 @@
                                             <td>{{$service->slug}}</td>
                                             @if(Auth::user()->role < 3)
                                             <td>@if(Auth::user()->role == 1){{$getCompany($service->staff->company)->name}} => @endif{{$service->staff->name}}</td>
-                                            @endif;
+                                            @endif
                                             <td><img style="max-width:100%; max-height: 50px" src="{{asset($service->icon)}}" alt="Thumbnail"></td>
                                             <td>
                                                 <a href="{{route('service.edit',$service->id)}}" class="btn btn-success">Edit</a>

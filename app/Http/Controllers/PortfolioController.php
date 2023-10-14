@@ -29,7 +29,10 @@ class PortfolioController extends Controller
         else{
             $portfolios = Portfolios::where('user_id', Auth::user()->id)->get();
         }
-        return view('dashboard.index-portfolio', compact('portfolios'));
+        $getCompany = function ($user_id){
+            return User::find($user_id);
+        };
+        return view('dashboard.index-portfolio', compact('portfolios', 'getCompany'));
     }
 
     /**
@@ -173,7 +176,11 @@ class PortfolioController extends Controller
      */
     public function destroy($id)
     {
-        Portfolios::destroy($id);
-        return redirect()->route('portfolio.index')->with('notice', ['type' => 'warning', 'message' => 'Portfolio deleted successfully!']);
+        if(Portfolios::destroy($id)) {
+            return redirect()->route('portfolio.index')->with('notice', ['type' => 'warning', 'message' => 'Portfolio deleted successfully!']);
+        }
+        else{
+            return redirect()->route('portfolio.index')->with('notice', ['type' => 'danger', 'message' => 'Something went!']);
+        }
     }
 }

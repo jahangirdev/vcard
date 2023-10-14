@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Portfolios</h1>
+                        <h1 class="m-0">Testimonials</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Portfolios</li>
+                            <li class="breadcrumb-item active">Testimonials</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -39,37 +39,51 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <!-- /card-header -->
+{{--                            <div class="card-header">--}}
+{{--                                <h3 class="card-title">Portfolio Categories</h3>--}}
+
+{{--                                <div class="card-tools">--}}
+{{--                                    <div class="input-group input-group-sm" style="width: 150px;">--}}
+{{--                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">--}}
+
+{{--                                        <div class="input-group-append">--}}
+{{--                                            <button type="submit" class="btn btn-default">--}}
+{{--                                                <i class="fas fa-search"></i>--}}
+{{--                                            </button>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>Portfolio Title</th>
-                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Designation</th>
                                         @if(Auth::user()->role < 3 )<th>Assigned To</th>@endif
-                                        <th>Thumbnail</th>
+                                        <th>Comment</th>
+                                        <th>Image</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach( $portfolios as $portfolio)
+                                    @foreach( $testimonials as $testimonial)
                                         <tr>
-                                            <td>{{$portfolio->title}}</td>
-                                            <td>{{$portfolio->getCategory->name}}</td>
+                                            <td>{{$testimonial->name}}</td>
+                                            <td>{{$testimonial->designation}}</td>
                                             @if(Auth::user()->role < 3)
-                                                @php
-                                                $company = $getCompany($portfolio->staff->company);
-                                                @endphp
-                                                <td>@if(Auth::user()->role == 1 && $company != null ){{$company->name}} => @endif{{$portfolio->staff->name}}</td>
+                                            <td>@if(Auth::user()->role == 1 && $getCompany($testimonial->staff->company) != null ){{$getCompany($testimonial->staff->company)->name}} => @endif{{$testimonial->staff->name}}</td>
                                             @endif
-                                            <td><img style="max-width:100%; max-height: 50px" src="{{asset($portfolio->thumbnail)}}" alt="Thumbnail"></td>
+                                            <td><p>{{Str::limit($testimonial->comment, 30)}}</p></td>
+                                            <td><img style="max-width:100%; max-height: 50px" src="{{asset($testimonial->image)}}" alt="Thumbnail"></td>
                                             <td>
-                                                <a href="{{route('portfolio.edit',$portfolio->id)}}" class="btn btn-success">Edit</a>
-                                                <form method="post" action="{{route('portfolio.destroy', $portfolio->id)}}" id="delete-form-{{ $portfolio->id }}" style="display:none">
+                                                <a href="{{route('testimonial.edit',$testimonial->id)}}" class="btn btn-success">Edit</a>
+                                                <form method="post" action="{{route('testimonial.destroy', $testimonial->id)}}" id="delete-form-{{ $testimonial->id }}" style="display:none">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                                <button onclick="confirmDelete({{ $portfolio->id }})" type="submit" class="btn btn-danger">Delete</button>
+                                                <button onclick="confirmDelete({{ $testimonial->id }})" type="submit" class="btn btn-danger">Delete</button>
                                             </td>
                                         </tr>
                                     @endforeach

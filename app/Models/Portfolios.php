@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PortfolioCategory;
+use App\Models\User;
 
 class Portfolios extends Model
 {
@@ -13,5 +14,8 @@ class Portfolios extends Model
 
     public function getCategory(){
         return $this->belongsTo(PortfolioCategory::class, 'category');
+    }
+    public function staff(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

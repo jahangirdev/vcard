@@ -125,6 +125,29 @@ $currentRoute = Route::currentRouteName();
               </li>
             </ul>
           </li>
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa fa-comments nav-icon" aria-hidden="true"></i>
+              <p>
+                Testimonials
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('testimonial.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Testimonial</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route("testimonial.create")}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Testimonial</p>
+                </a>
+              </li>
+            </ul>
+          </li>
             @if(Auth::user()->role == 1)
             <li class="nav-item">
             <a href="#" class="nav-link">

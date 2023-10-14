@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function (){
     Route::view('/dashboard', 'dashboard.welcome')->name('dashboard.welcome');
     Route::resource('portfolio', PortfolioController::class);
     Route::resource('service', \App\Http\Controllers\ServiceController::class);
+    Route::resource('testimonial', \App\Http\Controllers\TestimonialController::class);
 });
 
 

@@ -60,7 +60,6 @@ class ServiceController extends Controller
             'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:services',
             'icon' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:512|dimensions:max_width=400,max_height=400',
             'description' => 'string',
-            'link' => 'string'
         ]);
         $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Auth::user()->id;
         $icon = $request->file("icon");
@@ -144,7 +143,7 @@ class ServiceController extends Controller
                 return redirect()->route('service.index')->with('notice', ['message' => 'Service updated Successfully!', 'type' => 'success']);
             }
             else{
-                return redirect()->route('service.index')->with('notice', ['message' => 'There is an issue with icon uploading!', 'type' => 'danger']);
+                return redirect()->route('service.index')->with('notice', ['message' => 'There is an issue with uploading icon!', 'type' => 'danger']);
             }
         }
         else{

@@ -101,6 +101,16 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(User::find($id)->company == Auth::user()->id || Auth::user()->role == 1 ){
+            if(User::destroy($id)) {
+                return redirect()->route('staff.index')->with('notice', ['type' => 'warning', 'message' => 'Staff deleted successfully!']);
+            }
+            else{
+                return redirect()->route('staff.index')->with('notice', ['type' => 'danger', 'message' => 'Something went wrong!. Please try again later.']);
+            }
+        }
+        else{
+            return redirect()->route('staff.index')->with('notice', ['type' => 'danger', 'message' => "You don't have permission to delete this staff"]);
+        }
     }
 }
