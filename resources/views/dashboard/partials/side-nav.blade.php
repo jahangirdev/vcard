@@ -198,6 +198,31 @@ $currentRoute = Route::currentRouteName();
             </ul>
           </li>
             @endif
+            @if(Auth::user()->role == 1)
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa fa-paint-brush nav-icon" aria-hidden="true"></i>
+              <p>
+                Templates
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('template.index')}}" class="nav-link {{ $currentRoute == 'template.index' ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Template</p>
+                </a>
+              </li>
+{{--              <li class="nav-item">--}}
+{{--                <a href="{{route("template.create")}}" class="nav-link {{ $currentRoute == 'staff.create' ? 'active' : '' }}">--}}
+{{--                  <i class="far fa-circle nav-icon"></i>--}}
+{{--                  <p>Add New Template</p>--}}
+{{--                </a>--}}
+{{--              </li>--}}
+            </ul>
+          </li>
+            @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
