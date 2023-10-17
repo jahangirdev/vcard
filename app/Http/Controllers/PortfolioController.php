@@ -63,10 +63,11 @@ class PortfolioController extends Controller
             'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:portfolios',
             'thumbnail' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048|dimensions:min_width=100,min_height=100,max_width:1000,max_height=1000',
             'category' => 'required|integer',
-            'description' => 'string',
-            'link' => 'string'
+            'description' => 'nullable|string',
+            'link' => 'nullable|url'
         ]);
-        $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Auth::user()->id;
+        $user_id = $request->user_id == null ? Auth::user()->id : $request->user_id;
+        $user_id = Auth::user()->role == 1 ? $user_id : User::find($user_id)->company == Auth::user()->id ? $user_id : Auth::user()->id;
         $thumbnail = $request->file("thumbnail");
         $path = "public/image/";
         $name = strtolower($request->slug.uniqid("", true).".".$thumbnail->getClientOriginalExtension());

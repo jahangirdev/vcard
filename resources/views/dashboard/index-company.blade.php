@@ -68,9 +68,9 @@
                                     @foreach( $companies as $company)
                                         <tr>
                                             <td>{{$company->name}}</td>
-                                            <td></td>
+                                            <td>{{$countStaff($company->id)}}</td>
                                             <td>
-                                                <a href="{{route('portfolio_category.edit',$company->id)}}" class="btn btn-success">Edit Profile</a>
+                                                <a href="{{$company->vcard ? route('vcard.index',$company->vcard->id): route('vcard.create', $company->id)}}" class="btn btn-success">{{$company->vcard ? 'Edit Vcard' : 'Create Vcard'}}</a>
                                                 <form method="post" action="{{route('company.destroy', $company->id)}}" id="delete-form-{{ $company->id }}" style="display:none">
                                                     @csrf
                                                     @method('DELETE')
@@ -94,7 +94,7 @@
     </div>
     <script>
         function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete this category?")) {
+            if (confirm("Are you sure you want to delete this company?")) {
                 document.getElementById('delete-form-' + id).submit();
             }
         }

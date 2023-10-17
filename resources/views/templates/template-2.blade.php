@@ -29,7 +29,7 @@
     <div class="vcard-three main-content w-100 mx-auto overflow-hidden">
 
         <div class="vcard-three__banner w-100 position-relative">
-            <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-banner.png" class="img-fluid banner-image" alt="banner"/>
+            <img src="{{asset($vcard->cover)}}" class="img-fluid banner-image" alt="banner"/>
 
 {{--            <div class="d-flex justify-content-end position-absolute top-0 end-0 me-3">--}}
 {{--                <div class="language pt-3 me-2">--}}
@@ -71,366 +71,370 @@
 
         <div class="vcard-three__profile position-relative">
             <div class="avatar position-absolute top-0 start-50 translate-middle">
-                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-profile.png" alt="profile-img" class="rounded-circle"/>
+                <img src="{{asset($vcard->profile_img)}}" alt="profile-img" class="rounded-circle"/>
             </div>
         </div>
 
         <div class="vcard-three__profile-details py-3 px-3">
-            <h4 class="vcard-three-heading text-center">Khushi Patel</h4>
-            <span class="profile-designation text-center d-block text-white">a freelancer UI/UX Designer</span>
+            <h4 class="vcard-three-heading text-center">{{$vcard->user->name}}</h4>
+            <span class="profile-designation text-center d-block text-white">{{$vcard->designation}}</span>
             <div class="mt-5">
-                <span class="profile-description" > I am a heart surgeon. I have 10 year experience in surgery,I am a heart surgeon. I have 10 year experience in surgery,I am a heart surgeon. I have 10 year experience in surgery,I am a heart surgeon. I have 10 year experience in surgery,I am a heart surgeon. I have 10 year experience in surgery,I am a heart surgeon. I have 10 year experience in surgery</span>
+                <span class="profile-description" >{{$vcard->about}}</span>
             </div>
+            @if($vcard->show_social_icons == 1)
             <div class="social-icons d-flex justify-content-center pt-4">
-                <i class="fab fa-facebook facebook-icon icon me-sm-4 me-2 fa-2x"></i>
-                <i class="fab fa-instagram instagram-icon icon mx-sm-4 mx-3 fa-2x"></i>
-                <i class="fab fa-linkedin-in linkedin-icon icon mx-sm-4 mx-3 fa-2x"></i>
-                <i class="fab fa-whatsapp whatsapp-icon icon mx-sm-4 mx-3 fa-2x"></i>
-                <i class="fab fa-twitter twitter-icon icon ms-sm-4 ms-2 fa-2x"></i>
-            </div>
-        </div>
+                @if($vcard->socialLinks->facebook || $vcard->socialLinks->facebook_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->facebook_link}}">
+                        <i class="fab fa-facebook facebook-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
 
+                @if($vcard->socialLinks->youtube || $vcard->socialLinks->youtube_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->youtube_link}}">
+                        <i class="fab fa-youtube youtube-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->whatsapp || $vcard->socialLinks->whatsapp_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->whatsapp_link}}">
+                        <i class="fab fa-whatsapp whatsapp-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->instagram || $vcard->socialLinks->instagram_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->instagram_link}}">
+                        <i class="fab fa-instagram instagram-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->tiktok || $vcard->socialLinks->tiktok_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->tiktok_link}}">
+                        <i class="fab fa-tiktok tiktok-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->snapchat || $vcard->socialLinks->snapchat_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->snapchat_link}}">
+                        <i class="fab fa-snapchat snapchat-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->pinterest || $vcard->socialLinks->pinterest_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->pinterest_link}}">
+                        <i class="fab fa-pinterest pinterest-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->reddit || $vcard->socialLinks->reddit_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->reddit_link}}">
+                        <i class="fab fa-reddit reddit-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->linkedin || $vcard->socialLinks->linkedin_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->linkedin_link}}">
+                        <i class="fab fa-linkedin linkedin-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->twitter || $vcard->socialLinks->twitter_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->twitter_link}}">
+                        <i class="fab fa-twitter twitter-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->github || $vcard->socialLinks->github_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->github_link}}">
+                        <i class="fab fa-github github-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->behance || $vcard->socialLinks->behance_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->behance_link}}">
+                        <i class="fab fa-behance behance-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+                @if($vcard->socialLinks->dribbble || $vcard->socialLinks->dribbble_link)
+                    <a target="_blank" href="{{$vcard->socialLinks->dribbble_link}}">
+                        <i class="fab fa-dribbble dribbble-icon icon me-sm-4 me-2 fa-2x"></i>
+                    </a>
+                @endif
+
+            </div>
+            @endif
+        </div>
+        @if($vcard->show_contact_info == 1)
         <div class="vcard-three__event py-3 px-3 mt-2 position-relative">
-            <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-shape.png" alt="shape" class="position-absolute end-0 shape-one"/>
+            <img src="{{asset('/public/front-end/templates/images/vcard3-shape.png')}}" alt="shape" class="position-absolute end-0 shape-one"/>
             <div class="container">
                 <div class="row g-3">
                     <div class="col-sm-6 col-12">
                         <div class="card event-card p-2 h-100 border-0 flex-sm-row flex-column align-items-center">
                             <span class="event-icon d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-email.png" alt="email"/>
+                                <img src="{{asset('/public/front-end/templates/images/vcard3-email.png')}}" alt="email"/>
                             </span>
                             <div class="event-detail ms-sm-3 mt-sm-0 mt-4">
                                 <h6 class="text-white text-sm-start text-center">E-mail address</h6>
-                                <h5 class="event-name text-sm-start text-center mb-0 text-white">sly.watson@gmail.com</h5>
+                                <h5 class="event-name text-sm-start text-center mb-0 text-white">{{$vcard->contact_email ? : $vcard->user->email}}</h5>
                             </div>
                         </div>
                     </div>
+                    @if($vcard->phone || $vcard->phone2)
                     <div class="col-sm-6 col-12">
                         <div class="card event-card p-2 h-100 border-0 flex-sm-row flex-column align-items-center">
                             <span class="event-icon d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-phone.png" alt="phone"/>
+                                <img src="{{asset('/public/front-end/templates/images/vcard3-phone.png')}}" alt="phone"/>
                             </span>
                             <div class="event-detail ms-sm-3 mt-sm-0 mt-4">
                                 <h6 class="text-white text-sm-start text-center">Mobile Number</h6>
-                                <h5 class="event-name text-center mb-0 text-white">+91 97939 97930</h5>
+                                <h5 class="event-name text-center mb-0 text-white">{{$vcard->phone ? : $vcard->phone2 ? : ''}}</h5>
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @if($vcard->website)
                     <div class="col-sm-6 col-12">
                         <div class="card event-card p-2 h-100 border-0 flex-sm-row flex-column align-items-center">
                             <span class="event-icon d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-birthday.png" alt="birthday"/>
+                                <img src="{{asset('/public/front-end/templates/images/vcard3-web.png')}}" alt="birthday"/>
                             </span>
                             <div class="event-detail ms-sm-3 mt-sm-0 mt-4">
-                                <h6 class="text-white text-sm-start text-center">Date of Birth</h6>
-                                <h5 class="event-name text-center mb-0 text-white">17 April 1997</h5>
+                                <h6 class="text-white text-sm-start text-center">Website</h6>
+                                <h5 class="event-name text-center mb-0 text-white">{{$vcard->website}}</h5>
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @if(!empty($vcard->address))
                     <div class="col-sm-6 col-12">
                         <div class="card event-card p-2 h-100 border-0 flex-sm-row flex-column align-items-center">
                             <span class="event-icon d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-location.png" alt="location"/>
+                                <img src="{{asset('/public/front-end/templates/images/vcard3-location.png')}}" alt="location"/>
                             </span>
                             <div class="event-detail ms-sm-3 mt-sm-0 mt-4">
                                 <h6 class="text-white text-sm-start text-center">Location</h6>
-                                <h5 class="event-name text-center mb-0 text-white">Gujarat - India</h5>
+                                <h5 class="event-name text-center mb-0 text-white">{{$vcard->address}}</h5>
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
+        @endif
 
+{{--        <div class="vcard-three__appointment py-3">--}}
+{{--            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white position-relative">Make an--}}
+{{--                Appointment</h4>--}}
+{{--            <div class="container px-4">--}}
+{{--                <div class="row d-flex align-items-center justify-content-center mb-3">--}}
+{{--                    <div class="col-md-2">--}}
+{{--                        <label for="date" class="me-4 appoint-date mb-2">Date</label>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-10">--}}
+{{--                        <input id="myID" type="text" class="appoint-input" placeholder="Pick a Date"/>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="row d-flex align-items-center justify-content-center mb-md-3">--}}
+{{--                    <div class="col-md-2">--}}
+{{--                        <label for="text" class="me-4 appoint-date mb-2">Hour</label>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-5 mb-md-0 mb-3">--}}
+{{--                        <div class="card appoint-input flex-row">--}}
+{{--                            <span>08:10 - 20:00</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-5 mb-md-0 mb-3">--}}
+{{--                        <div class="card appoint-input flex-row">--}}
+{{--                            <span>08:10 - 20:00</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="row d-flex align-items-center justify-content-center">--}}
+{{--                    <div class="col-md-2">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-5 mb-md-0 mb-3">--}}
+{{--                        <div class="card appoint-input flex-row">--}}
+{{--                            <span>08:10 - 20:00</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-5 mb-md-0 mb-3">--}}
+{{--                        <div class="card appoint-input flex-row">--}}
+{{--                            <span>08:10 - 20:00</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <button type="button" class="appoint-btn text-white mt-4 d-block mx-auto ">Make an Appointment</button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="vcard-three__appointment py-3">
-            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white position-relative">Make an
-                Appointment</h4>
-            <div class="container px-4">
-                <div class="row d-flex align-items-center justify-content-center mb-3">
-                    <div class="col-md-2">
-                        <label for="date" class="me-4 appoint-date mb-2">Date</label>
-                    </div>
-                    <div class="col-md-10">
-                        <input id="myID" type="text" class="appoint-input" placeholder="Pick a Date"/>
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center justify-content-center mb-md-3">
-                    <div class="col-md-2">
-                        <label for="text" class="me-4 appoint-date mb-2">Hour</label>
-                    </div>
-                    <div class="col-md-5 mb-md-0 mb-3">
-                        <div class="card appoint-input flex-row">
-                            <span>08:10 - 20:00</span>
-                        </div>
-                    </div>
-                    <div class="col-md-5 mb-md-0 mb-3">
-                        <div class="card appoint-input flex-row">
-                            <span>08:10 - 20:00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-5 mb-md-0 mb-3">
-                        <div class="card appoint-input flex-row">
-                            <span>08:10 - 20:00</span>
-                        </div>
-                    </div>
-                    <div class="col-md-5 mb-md-0 mb-3">
-                        <div class="card appoint-input flex-row">
-                            <span>08:10 - 20:00</span>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="appoint-btn text-white mt-4 d-block mx-auto ">Make an Appointment</button>
-            </div>
-        </div>
-
-
+        @if($vcard->show_services == 1 && $vcard->services != null)
         <div class="vcard-three__service py-4 position-relative px-sm-3">
-            <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-shape2.png" alt="shape" class="position-absolute start-0 shape-two"/>
-            <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-shape3.png" alt="shape" class="position-absolute end-0 bottom-0 shape-three"/>
+            <img src="{{asset('/public/front-end/templates/images/vcard3-shape2.png')}}" alt="shape" class="position-absolute start-0 shape-two"/>
+            <img src="{{asset('/public/front-end/templates/images/vcard3-shape3.png')}}" alt="shape" class="position-absolute end-0 bottom-0 shape-three"/>
             <div class="container">
-                <h4 class="vcard-three-heading heading-line position-relative text-center">Our Services</h4>
+                <h4 class="vcard-three-heading heading-line position-relative text-center">{{$vcard->user->role == 2 ? 'Our': 'My'}} Services</h4>
                 <div class="row mt-3 g-3">
+                    @foreach($vcard->services as $service)
                     <div class="col-sm-6 col-12">
                         <div class="card service-card p-3 h-100 d-flex align-items-center bg-white">
                             <div class="service-image d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-service1.png" alt="service"/>
+                                <img src="{{asset($service->icon)}}" alt="{{$service->title}}"/>
                             </div>
                             <div class="service-details mt-3">
-                                <h4 class="service-title text-center">UI/UX Design</h4>
+                                <h4 class="service-title text-center">{{$service->title}}</h4>
                                 <p class="service-paragraph mb-0 text-center">
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
+                                    {{$service->description}}
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-12">
-                        <div class="card service-card p-3 h-100 d-flex align-items-center bg-white">
-                            <div class="service-image d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-service1.png" alt="service"/>
-                            </div>
-                            <div class="service-details mt-3">
-                                <h4 class="service-title text-center">UI/UX Design</h4>
-                                <p class="service-paragraph mb-0 text-center">
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-12">
-                        <div class="card service-card p-3 h-100 d-flex align-items-center bg-white">
-                            <div class="service-image d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-service1.png" alt="service"/>
-                            </div>
-                            <div class="service-details mt-3">
-                                <h4 class="service-title text-center">UI/UX Design</h4>
-                                <p class="service-paragraph mb-0 text-center">
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-12">
-                        <div class="card service-card p-3 h-100 d-flex align-items-center bg-white">
-                            <div class="service-image d-flex justify-content-center align-items-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-service1.png" alt="service"/>
-                            </div>
-                            <div class="service-details mt-3">
-                                <h4 class="service-title text-center">UI/UX Design</h4>
-                                <p class="service-paragraph mb-0 text-center">
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                    In every trip includes insurance.
-                                    So don’t worry, we’ll cover it!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+        @endif
+
+{{--        <div class="vcard-three__product mt-3 py-3 position-relative px-3">--}}
+{{--            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white">Gallery</h4>--}}
+{{--            <div class="container">--}}
+{{--                <div class="row g-3 gallery-slider">--}}
+{{--                    <div class="col-6 p-2">--}}
+{{--                        <div class="card product-card p-3 border-0 w-100 h-100">--}}
+{{--                            <div class="gallery-profile">--}}
+{{--                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"--}}
+{{--                                   class="gallery-link">--}}
+{{--                                    <img src="https://vcard.waptechy.com/assets/img/video-thumbnail.png" alt="profile"--}}
+{{--                                         class="w-100"/>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-6 p-2">--}}
+{{--                        <div class="card product-card p-3 border-0 w-100 h-100">--}}
+{{--                            <div class="gallery-profile">--}}
+{{--                                <img src="https://vcards.infyom.com/assets/img/vcard1/v2.jpg" alt="profile" class="w-100"/>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+{{--            <div class="modal-dialog modal-dialog-centered">--}}
+{{--                <div class="modal-content">--}}
+{{--                    <div class="modal-body">--}}
+{{--                        <iframe src="//www.youtube.com/embed/Q1NKMPhP8PY"--}}
+{{--                                class="w-100" height="315">--}}
+{{--                        </iframe>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 
+        @if($vcard->show_portfolios == 1 && $vcard->portfolios()->exists())
         <div class="vcard-three__product mt-3 py-3 position-relative px-3">
-            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white">Gallery</h4>
-            <div class="container">
-                <div class="row g-3 gallery-slider">
-                    <div class="col-6 p-2">
-                        <div class="card product-card p-3 border-0 w-100 h-100">
-                            <div class="gallery-profile">
-                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                   class="gallery-link">
-                                    <img src="https://vcard.waptechy.com/assets/img/video-thumbnail.png" alt="profile"
-                                         class="w-100"/>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 p-2">
-                        <div class="card product-card p-3 border-0 w-100 h-100">
-                            <div class="gallery-profile">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v2.jpg" alt="profile" class="w-100"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <iframe src="//www.youtube.com/embed/Q1NKMPhP8PY"
-                                class="w-100" height="315">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="vcard-three__product mt-3 py-3 position-relative px-3">
-            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white">Products</h4>
+            <h4 class="vcard-three-heading heading-line text-center pb-4 text-white">Portfolios</h4>
             <div class="container">
                 <div class="row g-3 product-slider">
+                    @foreach($vcard->portfolios as $portfolio)
                     <div class="col-6 p-2">
                         <div class="card product-card p-3 border-0 w-100 h-100">
                             <div class="product-profile">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>
+                                <img src="{{asset($portfolio->thumbnail)}}" alt="{{$portfolio->title}}" class="w-100"/>
                             </div>
                             <div class="product-details mt-3">
-                                <h4 class="text-white">men's Wear</h4>
+                                <h4 class="text-white">{{$portfolio->title}}</h4>
+                                <h6 class="text-dark">{{$portfolio->getCategory->name}}</h6>
                                 <p class="mb-2 text-white">
-                                    Men Regular Formal Suit
+                                    {{$portfolio->description}}
                                 </p>
-                                <span class="text-white">$150</span>
+                                @if($portfolio->link)<a href="{{$portfolio->link}}" class="text-white">Live link</a>@endif
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 p-2">
-                        <div class="card product-card p-3 border-0 w-100 h-100">
-                            <div class="product-profile">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v2.jpg" alt="profile" class="w-100"/>
-                            </div>
-                            <div class="product-details mt-3">
-                                <h4 class="text-white">Laptop</h4>
-                                <p class="mb-2 text-white">
-                                    DELL Inspiron Core i3 11th Gen
-                                </p>
-                                <span class="text-white">$200</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+        @endif
 
-
+        @if($vcard->show_testimonials == 1 && $vcard->testimonials()->exists())
         <div class="vcard-three__testimonial py-4 position-relative px-sm-3">
             <div class="container">
                 <h4 class="vcard-three-heading heading-line position-relative text-center">Testimonial</h4>
                 <div class="row g-3 testimonial-slider mt-4">
+                    @foreach($vcard->testimonials as $testimonial)
                     <div class="col-12">
                         <div class="card testimonial-card p-3 border-0 w-100">
                             <div
                                 class="testimonial-user d-flex flex-sm-row flex-column align-items-center justify-content-sm-start justify-content-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/testimonial-profile.png" alt="profile"
+                                <img src="{{asset($testimonial->image)}}" alt="profile"
                                      class="rounded-circle"/>
                                 <div class="user-details d-flex flex-column ms-sm-3 mt-sm-0 mt-2">
-                                    <span class="user-name text-white text-sm-start text-center">Shane Watson</span>
-                                    <span class="user-designation text-white text-sm-start text-center">- CEO at Tarsons</span>
+                                    <span class="user-name text-white text-sm-start text-center">{{$testimonial->name}}</span>
+                                    <span class="user-designation text-white text-sm-start text-center">- {{$testimonial->designation}}</span>
                                 </div>
                             </div>
                             <p class="review-message mb-2 text-sm-start text-center mt-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Proin dignissim porttitor sollicitudin. Duis tellus ante,
-                                aliquet a nisl ac, pharetra suscipit quam. In eu volutpat
-                                eros, et bibendum turpis.
+                                {{$testimonial->comment}}
                             </p>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="card testimonial-card p-3 border-0 w-100">
-                            <div class="testimonial-user d-flex flex-sm-row flex-column align-items-center justify-content-sm-start justify-content-center">
-                                <img src="https://vcards.infyom.com/assets/img/vcard3/testimonial-profile.png" alt="profile" class="rounded-circle"/>
-                                <div class="user-details d-flex flex-column ms-sm-3 mt-sm-0 mt-2">
-                                    <span class="user-name text-white text-sm-start text-center">Shane Watson</span>
-                                    <span class="user-designation text-white text-sm-start text-center">- CEO at Tarsons</span>
-                                </div>
-                            </div>
-                            <p class="review-message mb-2 text-sm-start text-center mt-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Proin dignissim porttitor sollicitudin. Duis tellus ante,
-                                aliquet a nisl ac, pharetra suscipit quam. In eu volutpat
-                                eros, et bibendum turpis.
-                            </p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+        @endif
 
-
-        <div class="vcard-three__blog py-3">
-            <h4 class="vcard-three-heading heading-line position-relative text-center pb-4">Blog</h4>
-            <div class="container">
-                <div class="row g-4 blog-slider overflow-hidden">
-                    <div class="col-6 mb-2">
-                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">
-                            <div class="blog-image">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>
-                            </div>
-                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">
-                                <h5 class="text-sm-start text-center">men's Wear</h5>
-                                <p class="mt-2 mb-0 text-sm-start text-center">
-                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-2">
-                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">
-                            <div class="blog-image">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>
-                            </div>
-                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">
-                                <h5 class="text-sm-start text-center">men's Wear</h5>
-                                <p class="mt-2 mb-0 text-sm-start text-center">
-                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 mb-2">
-                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">
-                            <div class="blog-image">
-                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>
-                            </div>
-                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">
-                                <h5 class="text-sm-start text-center">men's Wear</h5>
-                                <p class="mt-2 mb-0 text-sm-start text-center">
-                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <div class="vcard-three__blog py-3">--}}
+{{--            <h4 class="vcard-three-heading heading-line position-relative text-center pb-4">Blog</h4>--}}
+{{--            <div class="container">--}}
+{{--                <div class="row g-4 blog-slider overflow-hidden">--}}
+{{--                    <div class="col-6 mb-2">--}}
+{{--                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">--}}
+{{--                            <div class="blog-image">--}}
+{{--                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>--}}
+{{--                            </div>--}}
+{{--                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">--}}
+{{--                                <h5 class="text-sm-start text-center">men's Wear</h5>--}}
+{{--                                <p class="mt-2 mb-0 text-sm-start text-center">--}}
+{{--                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-6 mb-2">--}}
+{{--                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">--}}
+{{--                            <div class="blog-image">--}}
+{{--                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>--}}
+{{--                            </div>--}}
+{{--                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">--}}
+{{--                                <h5 class="text-sm-start text-center">men's Wear</h5>--}}
+{{--                                <p class="mt-2 mb-0 text-sm-start text-center">--}}
+{{--                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-6 mb-2">--}}
+{{--                        <div class="card blog-card p-4 border-0 w-100 h-100 flex-sm-row">--}}
+{{--                            <div class="blog-image">--}}
+{{--                                <img src="https://vcards.infyom.com/assets/img/vcard1/v1.jpg" alt="profile" class="w-100"/>--}}
+{{--                            </div>--}}
+{{--                            <div class="blog-details ms-sm-5 ms-0 mt-sm-0 mt-5">--}}
+{{--                                <h5 class="text-sm-start text-center">men's Wear</h5>--}}
+{{--                                <p class="mt-2 mb-0 text-sm-start text-center">--}}
+{{--                                    Men Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal SuitMen Regular Formal Suit--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 
         <div class="vcard-three__qr-code py-4 position-relative px-sm-3">
@@ -442,14 +446,14 @@
                         <img src="https://vcards.infyom.com/assets/img/vcard3/testimonial-profile.png" alt="qr profile" class="rounded-circle"/>
                     </div>
                     <div class="qr-code-scanner mx-md-4 mx-2 p-4 bg-white">
-                        <img src="https://vcards.infyom.com/assets/img/vcard3/vcard3-qr-code.png" alt="qr profile"/>
+                        {!! QrCode::size(200)->generate(config('app.url').'vcard/'.$vcard->slug) !!}
                     </div>
                     <div class="mx-2">
                         <div class="qr-profile mb-3 d-flex justify-content-center d-sm-block d-none">
-                            <img src="https://vcards.infyom.com/assets/img/vcard3/testimonial-profile.png" alt="qr profile"
+                            <img src="{{asset($vcard->profile_img)}}" alt="qr profile"
                                  class="mx-auto d-block rounded-circle"/>
                         </div>
-                        <button type="button" class="qr-code-btn text-white mt-4 mx-auto">Download My QR Code</button>
+                        <button onclick="download()" type="button" class="qr-code-btn text-white mt-4 mx-auto">Download My QR Code</button>
                     </div>
                 </div>
             </div>
@@ -626,6 +630,63 @@
             $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
         });
     });
+</script>
+<script>
+    const createStyleElementFromCSS = () => {
+        // JSFiddle's custom CSS is defined in the second stylesheet file
+        const sheet = document.styleSheets[1];
+
+        const styleRules = [];
+        for (let i = 0; i < sheet.cssRules.length; i++)
+            styleRules.push(sheet.cssRules.item(i).cssText);
+
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(styleRules.join(' ')))
+
+        return style;
+    };
+    const style = createStyleElementFromCSS();
+
+    const download = () => {
+        // fetch SVG-rendered image as a blob object
+        const svg = document.querySelector('.qr-code-scanner svg');
+        svg.insertBefore(style, svg.firstChild); // CSS must be explicitly embedded
+        const data = (new XMLSerializer()).serializeToString(svg);
+        const svgBlob = new Blob([data], {
+            type: 'image/svg+xml;charset=utf-8'
+        });
+        style.remove(); // remove temporarily injected CSS
+
+        // convert the blob object to a dedicated URL
+        const url = URL.createObjectURL(svgBlob);
+
+        // load the SVG blob to a flesh image object
+        const img = new Image();
+        img.addEventListener('load', () => {
+            // draw the image on an ad-hoc canvas
+            const bbox = svg.getBBox();
+
+            const canvas = document.createElement('canvas');
+            canvas.width = bbox.width;
+            canvas.height = bbox.height;
+
+            const context = canvas.getContext('2d');
+            context.drawImage(img, 0, 0, bbox.width, bbox.height);
+
+            URL.revokeObjectURL(url);
+
+            // trigger a synthetic download operation with a temporary link
+            const a = document.createElement('a');
+            a.download = '{{$vcard->slug}}'+'.png';
+            document.body.appendChild(a);
+            a.href = canvas.toDataURL();
+            a.click();
+            a.remove();
+        });
+        img.src = url;
+    };
+
 </script>
 </body>
 </html>

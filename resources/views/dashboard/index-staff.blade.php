@@ -70,7 +70,7 @@
                                             <td>{{$staff->name}}</td>
                                             <td>{{$getCompany($staff->company)->name}}</td>
                                             <td>
-                                                <a href="{{route('portfolio_category.edit',$staff->id)}}" class="btn btn-success">Edit Profile</a>
+                                                <a href="{{$staff->vcard ? route('vcard.index',$staff->vcard->id): route('vcard.create', $staff->id)}}" class="btn btn-success">{{$staff->vcard ? 'Edit Vcard' : 'Create Vcard'}}</a>
                                                 <form method="post" action="{{route('company.destroy', $staff->id)}}" id="delete-form-{{ $staff->id }}" style="display:none">
                                                     @csrf
                                                     @method('DELETE')

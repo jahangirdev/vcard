@@ -61,7 +61,7 @@
                                     <tr>
                                         <th>Service Title</th>
                                         <th>Slug</th>
-                                        @if(Auth::user()->role < 3)<th>Assigned To</th>@endif
+                                        @if(Auth::user()->role < 3 )<th>Assigned To</th>@endif
                                         <th>Icon</th>
                                         <th>Action</th>
                                     </tr>
@@ -72,7 +72,7 @@
                                             <td>{{$service->title}}</td>
                                             <td>{{$service->slug}}</td>
                                             @if(Auth::user()->role < 3)
-                                            <td>@if(Auth::user()->role == 1){{$getCompany($service->staff->company)->name}} => @endif{{$service->staff->name}}</td>
+                                            <td>@if(Auth::user()->role == 1 && Auth::user()->id != $service->user_id){{$getCompany($service->staff->company)->name}} => @endif{{$service->staff->name}}</td>
                                             @endif
                                             <td><img style="max-width:100%; max-height: 50px" src="{{asset($service->icon)}}" alt="Thumbnail"></td>
                                             <td>

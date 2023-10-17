@@ -16,7 +16,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staffs = Auth::user()->role == 1 ? User::where('role', 3)->get() : User::where('company', Auth::user()->id)->get();
+        $staffs = Auth::user()->role == 1 ? User::where('role', 3)->with('vcard')->get() : User::where('company', Auth::user()->id)->with('vcard')->get();
         $getCompany = function ($user_id){
             return User::find($user_id);
         };

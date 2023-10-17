@@ -14,8 +14,11 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = User::where('role', 2)->get();
-        return view('dashboard.index-company', compact('companies'));
+        $companies = User::where('role', 2)->with('vcard')->get();
+        $countStaff = function ($id){
+            return User::where('company', $id)->count();
+        };
+        return view('dashboard.index-company', compact('companies', 'countStaff'));
     }
 
     /**

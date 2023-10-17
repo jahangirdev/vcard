@@ -70,7 +70,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="TestimonialComment">Testimonial Comment</label>
-                                        <textarea rows="8" name="comment" class="form-control" id="TestimonialComment" placeholder="Write testimonial comment here..."></textarea>
+                                        <textarea rows="8" name="comment" class="form-control" id="TestimonialComment" placeholder="Write testimonial comment here...">{{old('comment')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="thumbnailImage">Person photo </label>

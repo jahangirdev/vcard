@@ -70,7 +70,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="portfolioDesc">Service Description</label>
-                                        <textarea rows="8" name="description" class="form-control" id="portfolioDesc" placeholder="Write service descripton here..."></textarea>
+                                        <textarea rows="8" name="description" class="form-control" id="portfolioDesc" placeholder="Write service descripton here...">{{old('description')}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="thumbnailImage">Service Icon </label>

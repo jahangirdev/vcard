@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        \App\Providers\VcardsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -174,6 +175,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        /**
+         * Simple QR code generator
+         */
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
     ],
 
@@ -229,6 +234,15 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        /**
+         * Simple QR code generator
+         */
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+        /**
+         * Custom facades
+         */
+        'Vcards' => App\Facades\VcardsFacade::class,
 
     ],
 

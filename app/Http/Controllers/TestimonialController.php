@@ -57,11 +57,12 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|',
-            'designation' => 'string',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:512|dimensions:max_width=400,max_height=400',
+            'designation' => 'required|string',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:512|dimensions:max_width=400,max_height=400',
             'comment' => 'required|string',
         ]);
-        $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Auth::user()->id;
+        $user_id = $request->user_id ? : Auth::user()->id;
+        $user_id = $user_id != null && Auth::user()->role == 1 ? $user_id : User::find($user_id)->company == Auth::user()->id ? $user_id : Auth::user()->id;
         $image = $request->file("image");
         $path = "public/image/";
         $name = strtolower($request->slug.uniqid("", true).".".$image->getClientOriginalExtension());
@@ -116,8 +117,8 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|',
-            'designation' => 'string',
-            'image' => $request->file('icon') !== null ? 'image|mimes:jpg,png,jpeg,gif|max:512|dimensions:max_width:400,max_height=400':"",
+            'designation' => 'required|string',
+            'image' => $request->file('icon') !== null ? 'image|mimes:jpg,png,jpeg,gif,svg,webp|max:512|dimensions:max_width:400,max_height=400':"",
             'comment' => 'required|string'
         ]);
         $user_id = $request->user_id != null && Auth::user()->role == 1 ? $request->user_id : User::find($request->user_id)->company == Auth::user()->id ? $request->user_id : Services::find($id)->user_id;

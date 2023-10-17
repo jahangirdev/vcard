@@ -18,9 +18,9 @@ class CreatePortfoliosTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->integer('category');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('thumbnail');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });
